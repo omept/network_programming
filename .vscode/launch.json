@@ -27,6 +27,13 @@
             "mode": "auto",
             "program": "ch3/ipv4mask/ipv4mask.go",
             "args": ["143.4.159.18"]
+        }, 
+        {
+            "name": "IPV4Router",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "ch3/ipv4router/ipv4router.go"
         }
     ]
 }
