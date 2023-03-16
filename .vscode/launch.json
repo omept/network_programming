@@ -19,6 +19,14 @@
             "mode": "auto",
             "program": "ch3/mask/mask.go",
             "args": ["103.232.159.187", "24", "32"]
+        }, 
+        {
+            "name": "IPV4Mask",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "ch3/ipv4mask/ipv4mask.go",
+            "args": ["143.4.159.18"]
         }
     ]
 }
