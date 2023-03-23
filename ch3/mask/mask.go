@@ -20,6 +20,10 @@ func main() {
 	bits, _ := strconv.Atoi(os.Args[3])
 	addrs := net.ParseIP(dotIp)
 
+	if bits != 64 && bits != 32 {
+		log.Fatal("invalid bits value")
+	}
+
 	if addrs == nil {
 		log.Fatal("invalid address")
 	}
