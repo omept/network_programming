@@ -58,6 +58,14 @@
             "mode": "auto",
             "program": "ch3/cnamelookup/cnamelookup.go",
             "args": ["localhost"]
+        }, 
+        {
+            "name": "Port lookup from networktype & service",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "ch3/portlookup/portlookup.go",
+            "args": ["tcp", "ssh"]
         }
     ]
 }
