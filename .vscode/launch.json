@@ -42,6 +42,22 @@
             "mode": "auto",
             "program": "ch3/resolveip/resolveip.go",
             "args": ["localhost"]
+        }, 
+        {
+            "name": "Lookup MX",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "ch3/lookupmail/lookupmail.go",
+            "args": ["localhost"]
+        }, 
+        {
+            "name": "Host lookup from CNAME",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "ch3/cnamelookup/cnamelookup.go",
+            "args": ["localhost"]
         }
     ]
 }
