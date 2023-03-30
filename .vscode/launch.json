@@ -65,7 +65,7 @@
             "request": "launch",
             "mode": "auto",
             "program": "ch3/portlookup/portlookup.go",
-            "args": ["tcp", "ssh"]
+            "args": ["tcp", "postgresql"]
         }
     ]
 }
