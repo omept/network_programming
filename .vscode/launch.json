@@ -66,6 +66,30 @@
             "mode": "auto",
             "program": "ch3/portlookup/portlookup.go",
             "args": ["tcp", "postgresql"]
+        },
+        {
+            "name": "Daytime server",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "ch3/daytimeserver/daytimeserver.go",
+         
+        },
+        {
+            "name": "Simple echo server",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "ch3/simpleechoserver/simpleechoserver.go",
+         
+        },
+        {
+            "name": "Threaded Simple echo server",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "ch3/threadedechoserver/threadedechoserver.go",
+         
         }
     ]
 }
