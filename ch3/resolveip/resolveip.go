@@ -5,18 +5,26 @@ import (
 	"log"
 	"net"
 	"os"
+	"slices"
 )
 
 func main() {
-	if len(os.Args) != 2 {
-		log.Fatalf("Usage: %s domain-name", os.Args[1])
+	if len(os.Args) != 3 {
+		log.Fatalf("required format: %s <domain> <type>", os.Args[0])
 	}
 
-	ipAddr, err := net.ResolveIPAddr("ip", os.Args[1])
+	allowed := []string{"ip", "ip4", "ip6"}
+	domain := os.Args[1]
+	ntype := os.Args[2]
 
+	if !slices.Contains(allowed, ntype) {
+		log.Fatalln("invalid type. allowed:", allowed)
+	}
+
+	ip, err := net.ResolveIPAddr(ntype, domain)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalln(err.Error())
 	}
 
-	fmt.Printf("IP Address %s", ipAddr)
+	fmt.Printf("Domain : %s,\nIP : %s,\nZone : %s\n", domain, ip.IP, ip.Zone)
 }

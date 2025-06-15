@@ -1,6 +1,3 @@
-/*
-IP Mask
-*/
 package main
 
 import (
@@ -12,30 +9,33 @@ import (
 )
 
 func main() {
+
 	if len(os.Args) != 4 {
-		log.Fatalf("usage: %s dotted-ip-address ones bits \n", os.Args[0])
-	}
-	dotIp := os.Args[1]
-	ones, _ := strconv.Atoi(os.Args[2])
-	bits, _ := strconv.Atoi(os.Args[3])
-	addrs := net.ParseIP(dotIp)
-
-	if bits != 64 && bits != 32 {
-		log.Fatal("invalid bits value")
+		log.Fatalf("supported format: %s ip ones bits", os.Args[0])
 	}
 
-	if addrs == nil {
-		log.Fatal("invalid address")
+	ipString := os.Args[1]
+	onesString := os.Args[2]
+	bitsString := os.Args[3]
+
+	ip := net.ParseIP(ipString)
+
+	if ip == nil {
+		log.Fatalln("invalid IP")
+	}
+	ones, err := strconv.Atoi(onesString)
+	if err != nil {
+		log.Fatalln("invalid ones passed")
 	}
 
-	//The simplest function to create a netmask uses the CIDR notation of ones followed by zeroes up to the number of bits:
-	mask := net.CIDRMask(ones, bits) // Classless Inter-Domain Routing (a.k.a. CIDR)
-	computedOnes, computedBits := mask.Size()
-	network := addrs.Mask(mask)
+	bits, err := strconv.Atoi(bitsString)
+	if err != nil {
+		log.Fatalln("invalid bits passed")
+	}
 
-	fmt.Println("Address is ", addrs.String(),
-		"\nMask Length is : ", computedBits,
-		"\nLeading ones count is : ", computedOnes,
-		"\nMask is (hex): ", mask.String(),
-		"\nNetwork is : ", network.String())
+	mask := net.CIDRMask(ones, bits)
+
+	network := ip.Mask(mask)
+	mo, mb := mask.Size()
+	fmt.Printf("IP Address: %s, \nNetwork : %s, \nmask (hex): %s,\nones : %d,\nbits: %d\n", ip.String(), network, mask.String(), mo, mb)
 }

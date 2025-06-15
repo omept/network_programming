@@ -1,36 +1,40 @@
-/* Daytime server -- on terminal, run 
-$ telnet localhost 1200 
-*/
-
 package main
 
 import (
-	"net"
-	"time"
 	"log"
+	"net"
+	"os"
+	"time"
 )
 
-func main(){
-	service := ":1200"
-	tcpAddr, err := net.ResolveTCPAddr("tcp", service)
-	checkError(err)
-	
-	listener, err := net.ListenTCP("tcp", tcpAddr)
-	checkError(err)
+func main() {
+	if len(os.Args) != 2 {
+		log.Fatalf("Supported format: %s <domain>", os.Args[0])
+	}
+	sAddr := os.Args[1]
+	addr, err := net.ResolveTCPAddr("tcp", sAddr)
+	evalErr(err)
 
-	for{
-		conn, err := listener.Accept()
+	listener, err := net.ListenTCP("tcp", addr)
+	evalErr(err)
+
+	for {
+
+		acceptdCon, err := listener.Accept()
 		if err != nil {
 			continue
 		}
-		daytime := time.Now().String()
-		conn.Write([]byte(daytime))
-		conn.Close()
+
+		acceptdCon.Write([]byte(time.Now().String()))
+		log.Default().Printf("Sent date time to %s", acceptdCon.RemoteAddr().String())
+		acceptdCon.Close()
+
 	}
+
 }
 
-func checkError(err error) {
-	if err != nil{
-		log.Fatalln("Fatal error: %s", err.Error())
+func evalErr(e error) {
+	if e != nil {
+		log.Fatalln("error: ", e.Error())
 	}
 }
