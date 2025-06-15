@@ -24,13 +24,15 @@ func main() {
 		if err != nil {
 			continue
 		}
-
-		acceptdCon.Write([]byte(time.Now().String()))
-		log.Default().Printf("Sent date time to %s", acceptdCon.RemoteAddr().String())
-		acceptdCon.Close()
+		go processConnection(acceptdCon)
 
 	}
 
+}
+func processConnection(con net.Conn) {
+	con.Write([]byte(time.Now().String()))
+	log.Default().Printf("Sent date time to %s", con.RemoteAddr().String())
+	con.Close()
 }
 
 func evalErr(e error) {
